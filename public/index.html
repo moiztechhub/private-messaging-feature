@@ -4,19 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iChat - Realtime Node Socket.io Chat App</title>
-    <link rel="stylesheet" href="css/style.css"> <!-- Link to your CSS file -->
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script> <!-- Adjusted for your server port -->
-    <script defer src="js/client.js"></script> <!-- Link to your client-side JavaScript -->
+    <title>iChat - Realtime Chat App</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Link to CSS -->
+    <script defer src="/socket.io/socket.io.js"></script> <!-- Automatically resolves on the server -->
+    <script defer src="js/client.js"></script> <!-- Client-side logic -->
 </head>
 
 <body>
     <nav>
-        <img class="logo" src="images/chat.png" alt="Chat Logo"> <!-- Path to your logo image -->
-        <h1>Welcome to Moiz Chat App</h1>
+        <img class="logo" src="images/chat.png" alt="Chat Logo"> <!-- Chat logo -->
+        <h1>Welcome to iChat</h1>
     </nav>
     <div class="container">
-        <!-- Messages will be appended here -->
+        <!-- Chat messages will appear here -->
     </div>
     <div class="send">
         <form action="#" id="send-container">

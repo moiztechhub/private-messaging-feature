@@ -11,24 +11,25 @@ app.use(express.static('public'));
 
 const users = {};
 
+// Socket.IO connection
 io.on('connection', (socket) => {
     socket.on('new-user-joined', (name) => {
         users[socket.id] = name;
         socket.broadcast.emit('user-joined', name);
     });
-    
+
     socket.on('send', (message) => {
         socket.broadcast.emit('receive', { message: message, name: users[socket.id] });
     });
-    
+
     socket.on('disconnect', () => {
         socket.broadcast.emit('left', users[socket.id]);
         delete users[socket.id];
     });
 });
 
-// Start server on port 3000
-server.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+// Use the PORT environment variable for deployment
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
-
