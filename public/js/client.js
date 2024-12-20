@@ -22,8 +22,6 @@ const append = (message, position) => {
 const name = prompt("Enter your name to join");
 socket.emit('new-user-joined', name);
 
-
-
 // Handle form submission
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -34,6 +32,10 @@ form.addEventListener('submit', (e) => {
 });
 
 // Listen for server events
-socket.on('user-joined', name => append(`${name} joined the chat`, 'right'));
+socket.on('user-joined', name => {
+    append(`${name} joined the chat`, 'right');
+    audio.play(); // Play notification sound when a user joins
+});
+
 socket.on('receive', data => append(`${data.name}: ${data.message}`, 'left'));
 socket.on('left', name => append(`${name} left the chat`, 'right'));
