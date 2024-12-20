@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iChat - Realtime Chat App</title>
+    <title>Moiz Tech Hub Chat</title>
     <link rel="stylesheet" href="css/style.css"> <!-- Link to CSS -->
     <script defer src="/socket.io/socket.io.js"></script> <!-- Automatically resolves on the server -->
     <script defer src="js/client.js"></script> <!-- Client-side logic -->
@@ -15,10 +15,20 @@
         <img class="logo" src="https://moiztechhub.com/wp-content/uploads/2024/11/cropped-admin-ajax.webp" alt="Chat Logo"> <!-- Chat logo -->
         <h1>Moiz Chat Hub</h1>
     </nav>
+
+    <!-- Live User Panel -->
+    <div class="user-list">
+        <h2>Live Users</h2>
+        <ul id="users"></ul>
+    </div>
+
+    <!-- Chat Container -->
     <div class="container">
         Moiz Bin Shafique is here, Just say hello to him.
         <!-- Chat messages will appear here -->
     </div>
+
+    <!-- Message Input -->
     <div class="send">
         <form action="#" id="send-container">
             <input type="text" name="messageInp" id="messageInp" placeholder="Type a message...">

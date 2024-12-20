@@ -1,41 +1,56 @@
-const socket = io(); // Automatically connects to the server's origin
+const socket = io(); // Connect to the server
 
-// Get references to DOM elements
-const form = document.getElementById('send-container');
-const messageInput = document.getElementById('messageInp');
-const messageContainer = document.querySelector('.container');
+// DOM elements
+const messageInp = document.getElementById('messageInp');
+const sendContainer = document.getElementById('send-container');
+const container = document.querySelector('.container');
+const userList = document.getElementById('users');
 
-// Sound for notifications
-var audio = new Audio('/audio/ting.mp3'); // Notification sound
-
-// Append messages to the chat container
-const append = (message, position) => {
+// Function to append messages to the chat container
+const appendMessage = (message, position) => {
     const messageElement = document.createElement('div');
-    messageElement.innerText = message;
-    messageElement.classList.add('message');
-    messageElement.classList.add(position);
-    messageContainer.append(messageElement);
-    if (position === 'left') audio.play();
+    messageElement.classList.add('message', position);
+    messageElement.textContent = message;
+    container.appendChild(messageElement);
+    container.scrollTop = container.scrollHeight; // Auto-scroll to the bottom
 };
 
-// Prompt for user name
-const name = prompt("Enter your name to join");
-socket.emit('new-user-joined', name);
+// Prompt the user for their name
+const username = prompt('Enter your name to join the chat:');
+socket.emit('new-user', username); // Notify server of a new user
 
-// Handle form submission
-form.addEventListener('submit', (e) => {
+// Append a message when a user joins
+socket.on('user-joined', (name) => {
+    appendMessage(`${name} joined the chat`, 'left');
+});
+
+// Append received messages
+socket.on('receive', (data) => {
+    appendMessage(`${data.name}: ${data.message}`, 'left');
+});
+
+// Append a message when a user leaves
+socket.on('user-left', (name) => {
+    appendMessage(`${name} left the chat`, 'left');
+});
+
+// Update the live user list
+socket.on('update-users', (users) => {
+    userList.innerHTML = ''; // Clear the existing list
+    users.forEach((user) => {
+        const userElement = document.createElement('li');
+        userElement.textContent = user;
+        userList.appendChild(userElement);
+    });
+});
+
+// Send messages
+sendContainer.addEventListener('submit', (e) => {
     e.preventDefault();
-    const message = messageInput.value;
-    append(`You: ${message}`, 'right');
-    socket.emit('send', message);
-    messageInput.value = '';
+    const message = messageInp.value.trim(); // Remove extra spaces
+    if (message !== '') {
+        appendMessage(`You: ${message}`, 'right');
+        socket.emit('send', message); // Notify server of the message
+        messageInp.value = ''; // Clear input field
+    }
 });
-
-// Listen for server events
-socket.on('user-joined', name => {
-    append(`${name} joined the chat`, 'right');
-    audio.play(); // Play notification sound when a user joins
-});
-
-socket.on('receive', data => append(`${data.name}: ${data.message}`, 'left'));
-socket.on('left', name => append(`${name} left the chat`, 'right'));
