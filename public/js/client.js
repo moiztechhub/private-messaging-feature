@@ -21,7 +21,7 @@ const append = (message, position) => {
 // Prompt for user name
 const name = prompt("Enter your name to join");
 socket.emit('new-user-joined', name);
-if (position === 'left') audio.play();
+
 
 
 // Handle form submission
