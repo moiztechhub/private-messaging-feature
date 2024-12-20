@@ -1,5 +1,5 @@
-/* General Reset */
-* {
+ /* General Reset */
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -81,9 +81,6 @@ h1 {
     background-color: #2a2a2a;
     padding: 10px 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
-    position: fixed; /* Keeps send bar at the bottom */
-    bottom: 0;
-    left: 0;
 }
 
 #send-container {
@@ -98,7 +95,7 @@ h1 {
     flex-grow: 1;
     padding: 10px;
     border: 2px solid #444;
-    border-radius: 25px;
+    border-radius: 5px;
     font-size: 16px;
     background-color: #1f1f1f;
     color: #fff;
@@ -114,7 +111,7 @@ h1 {
     background-color: #55E6A5;
     color: #1f1f1f;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
